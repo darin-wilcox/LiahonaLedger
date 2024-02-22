@@ -1,93 +1,93 @@
 import { useState } from 'react';
 
-import NewProject from './components/NewProject.jsx';
-import NoProjectSelected from './components/NoProjectSelected.jsx';
-import ProjectsSidebar from './components/ProjectsSidebar.jsx';
-import SelectedProject from './components/SelectedProject.jsx';
+import NewAnnouncement from './components/NewAnnouncement.jsx';
+import NoAnnouncementSelected from './components/NoAnnouncementSelected.jsx';
+import AnnouncementsSidebar from './components/AnnouncementsSidebar.jsx';
+import SelectedAnnouncement from './components/SelectedAnnouncement.jsx';
 
 function App() {
-  const [projectsState, setProjectsState] = useState({
-    selectedProjectId: undefined,
-    projects: [],
+  const [announcementState, setAnnouncementState] = useState({
+    selectedAnnouncementId: undefined,
+    announcements: [],
   });
 
-  function handleSelectProject(id) {
-    setProjectsState((prevState) => {
+  function handleSelectAnnouncement(id) {
+    setAnnouncementState((prevState) => {
       return {
         ...prevState,
-        selectedProjectId: id,
+        selectedAnnouncementId: id,
       };
     });
   }
 
-  function handleStartAddProject() {
-    setProjectsState((prevState) => {
+  function handleStartAddAnnouncement() {
+    setAnnouncementState((prevState) => {
       return {
         ...prevState,
-        selectedProjectId: null,
+        selectedAnnouncementId: null,
       };
     });
   }
 
-  function handleCancelAddProject() {
-    setProjectsState((prevState) => {
+  function handleCancelAddAnnouncement() {
+    setAnnouncementState((prevState) => {
       return {
         ...prevState,
-        selectedProjectId: undefined,
+        selectedAnnouncementId: undefined,
       };
     });
   }
 
-  function handleAddProject(projectData) {
-    setProjectsState((prevState) => {
-      const projectId = Math.random();
-      const newProject = {
-        ...projectData,
-        id: projectId,
+  function handleAddAnnouncement(announcementData) {
+    setAnnouncementState((prevState) => {
+      const announcementId = Math.random();
+      const newAnnouncement = {
+        ...announcementData,
+        id: announcementId,
       };
 
       return {
         ...prevState,
-        selectedProjectId: undefined,
-        projects: [...prevState.projects, newProject],
+        selectedAnnouncementId: undefined,
+        announcements: [...prevState.announcements, newAnnouncement],
       };
     });
   }
 
-  function handleDeleteProject() {
-    setProjectsState((prevState) => {
+  function handleDeleteAnnouncement() {
+    setAnnouncementState((prevState) => {
       return {
         ...prevState,
-        selectedProjectId: undefined,
-        projects: prevState.projects.filter(
-          (project) => project.id !== prevState.selectedProjectId
+        selectedAnnouncementId: undefined,
+        announcements: prevState.announcements.filter(
+          (announcment) => announcment.id !== prevState.selectedAnnouncementId
         ),
       };
     });
   }
 
-  const selectedProject = projectsState.projects.find(
-    (project) => project.id === projectsState.selectedProjectId
+  const selectedAnnouncement = announcementState.announcements.find(
+    (announcement) => announcement.id === announcementState.selectedAnnouncementId
   );
 
   let content = (
-    <SelectedProject project={selectedProject} onDelete={handleDeleteProject} />
+    <SelectedAnnouncement announcement={selectedAnnouncement} onDelete={handleDeleteAnnouncement} />
   );
 
-  if (projectsState.selectedProjectId === null) {
+  if (announcementState.selectedAnnouncementId === null) {
     content = (
-      <NewProject onAdd={handleAddProject} onCancel={handleCancelAddProject} />
+      <NewAnnouncement onAdd={handleAddAnnouncement} onCancel={handleCancelAddAnnouncement} />
     );
-  } else if (projectsState.selectedProjectId === undefined) {
-    content = <NoProjectSelected onStartAddProject={handleStartAddProject} />;
+  } else if (announcementState.selectedAnnouncementId === undefined) {
+    content = <NoAnnouncementSelected onStartAddAnnouncement={handleStartAddAnnouncement} />;
   }
 
   return (
     <main className="h-screen my-8 flex gap-8">
-      <ProjectsSidebar
-        onStartAddProject={handleStartAddProject}
-        projects={projectsState.projects}
-        onSelectProject={handleSelectProject}
+      <AnnouncementsSidebar
+        onStartAddAnnouncement={handleStartAddAnnouncement}
+        announcements={announcementState.announcements}
+        onSelectAnnouncement={handleSelectAnnouncement}
       />
       {content}
     </main>
