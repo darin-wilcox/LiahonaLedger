@@ -3,7 +3,7 @@ import { useRef } from 'react';
 import Input from './Input.jsx';
 import Modal from './Modal.jsx';
 
-export default function NewProject({ onAdd, onCancel }) {
+export default function NewAnnouncement({ onAdd, onCancel }) {
   const modal = useRef();
 
   const title = useRef();

@@ -1,36 +1,36 @@
 import Button from './Button.jsx';
 
-export default function ProjectsSidebar({
-  onStartAddProject,
-  projects,
-  onSelectProject,
-  selectedProjectId,
+export default function AnnouncementsSidebar({
+  onStartAddAnnouncement,
+  announcements,
+  onSelectAnnouncement,
+  selectedAnnouncementId,
 }) {
   return (
     <aside className="w-1/3 px-8 py-16 bg-stone-900 text-stone-50 md:w-72 rounded-r-xl">
       <h2 className="mb-8 font-bold uppercase md:text-xl text-stone-200">
-        Your Projects
+        Your Announcements
       </h2>
       <div>
-        <Button onClick={onStartAddProject}>+ Add Project</Button>
+        <Button onClick={onStartAddAnnouncement}>+ Add Announcement</Button>
       </div>
       <ul className="mt-8">
-        {projects.map((project) => {
+        {announcements.map((announcement) => {
           let cssClasses = "w-full text-left px-2 py-1 rounded-sm my-1 hover:text-stone-200 hover:bg-stone-800";
 
-          if (project.id === selectedProjectId) {
+          if (announcement.id === selectedAnnouncementId) {
             cssClasses += ' bg-stone-800 text-stone-200'
           } else {
             cssClasses += ' text-stone-400'
           }
 
           return (
-            <li key={project.id}>
+            <li key={announcement.id}>
               <button
                 className={cssClasses}
-                onClick={() => onSelectProject(project.id)}
+                onClick={() => onSelectAnnouncement(announcement.id)}
               >
-                {project.title}
+                {announcement.title}
               </button>
             </li>
           );
