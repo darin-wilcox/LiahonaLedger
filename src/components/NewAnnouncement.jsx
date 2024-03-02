@@ -6,28 +6,43 @@ import Modal from './Modal.jsx';
 export default function NewAnnouncement({ onAdd, onCancel }) {
   const modal = useRef();
 
-  const title = useRef();
-  const description = useRef();
-  const dueDate = useRef();
+  const pulpitDesc = useRef();
+  const programDesc = useRef();
+  const includeInProgram = useRef();
+  const includeInPulpit = useRef();
+  const dateStartAnnounce = useRef();
+  const dateStopAnnounce = useRef();
+  const announceTitle = useRef();
 
   function handleSave() {
-    const enteredTitle = title.current.value;
-    const enteredDescription = description.current.value;
-    const enteredDueDate = dueDate.current.value;
+    const enteredPulpitDesc = pulpitDesc.current.value;
+    const enteredProgramDesc = programDesc.current.value;
+    const enteredDateCreated = new Date();
+    const enteredDateStartAnnounce = dateStartAnnounce.current.value;
+    const enteredDateStopAnnounce = dateStopAnnounce.current.value;
+    const enteredIncludePulpit = includeInPulpit.current.checked;
+    const enteredIncludeProgram = includeInProgram.current.checked;
+    const enteredAnnounceTitle = announceTitle.current.value;
 
-    if (
-      enteredTitle.trim() === '' ||
-      enteredDescription.trim() === '' ||
-      enteredDueDate.trim() === ''
-    ) {
+    if (enteredAnnounceTitle.trim() === '' 
+      || enteredIncludeProgram && enteredProgramDesc.trim() === ''
+      || enteredIncludePulpit && enteredPulpitDesc.trim() === ''
+      || enteredDateStartAnnounce === ''
+      || enteredDateStopAnnounce === '')
+    {
       modal.current.open();
       return;
     }
 
     onAdd({
-      title: enteredTitle,
-      description: enteredDescription,
-      dueDate: enteredDueDate,
+      pulpitDesc: enteredPulpitDesc,
+      programDesc: enteredProgramDesc,
+      dateCreated: enteredDateCreated,
+      dateStartAnnounce: enteredDateStartAnnounce,
+      dateStopAnnounce: enteredDateStopAnnounce,
+      includeInPulpit: enteredIncludePulpit,
+      includeInProgram: enteredIncludeProgram,
+      announceTitle: enteredAnnounceTitle,
     });
   }
 
@@ -62,9 +77,18 @@ export default function NewAnnouncement({ onAdd, onCancel }) {
           </li>
         </menu>
         <div>
-          <Input type="text" ref={title} label="Title" />
-          <Input ref={description} label="Description" textarea />
-          <Input type="date" ref={dueDate} label="Due Date" />
+          <Input ref={announceTitle} label="Brief Title" />
+          <Input type="date" ref={dateStartAnnounce} label="Date to Start Announcing" />
+          <Input type="date" ref={dateStopAnnounce} label="Date to Stop Announcing" />
+          <div>
+            <label><input ref={includeInPulpit} type="checkbox" /> Include in Pulpit</label>
+          </div>
+          <Input textarea ref={pulpitDesc} label="Pulpit Description" />
+          <div>
+            <label><input ref={includeInProgram} type="checkbox" /> Include in Program</label>
+          </div>
+          <Input textarea ref={programDesc} label="Program Description" />
+          
         </div>
       </div>
     </>

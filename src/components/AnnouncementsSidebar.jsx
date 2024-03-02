@@ -30,7 +30,7 @@ export default function AnnouncementsSidebar({
                 className={cssClasses}
                 onClick={() => onSelectAnnouncement(announcement.id)}
               >
-                {announcement.title}
+                {announcement.announceTitle}
               </button>
             </li>
           );
