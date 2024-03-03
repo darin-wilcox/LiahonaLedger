@@ -1,5 +1,5 @@
 export default function SelectedAnnouncement({ announcement, onDelete }) {
-  const formattedDate = new Date(announcement.dueDate).toLocaleDateString('en-US', {
+  const formattedDate = new Date(announcement.dateCreated).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
@@ -10,7 +10,7 @@ export default function SelectedAnnouncement({ announcement, onDelete }) {
       <header className="pb-4 mb-4 border-b-2 border-stone-300">
         <div className="flex items-center justify-between">
           <h1 className="text-3xl font-bold text-stone-600 mb-2">
-            {announcement.title}
+            {announcement.announceTitle}
           </h1>
           <button
             className="text-stone-600 hover:text-stone-950"
@@ -20,11 +20,25 @@ export default function SelectedAnnouncement({ announcement, onDelete }) {
           </button>
         </div>
         <p className="mb-4 text-stone-400">{formattedDate}</p>
-        <p className="text-stone-600 whitespace-pre-wrap">
-          {announcement.description}
-        </p>
       </header>
-      TASKS
+      <div>
+        Start Announcing: {announcement.dateStartAnnounce}
+      </div>
+      <div>
+        Stop Announcing: {announcement.dateStopAnnounce}
+      </div>
+      <div>
+        Pupit Announcement:
+        <p className="text-stone-66 whitespace-pre-wrap">
+          {announcement.pulpitDesc}
+        </p>
+      </div>
+      <div>
+        Program Announcement:
+        <p className="text-stone-66 whitespace-pre-wrap">
+          {announcement.programDesc}
+        </p>
+      </div>
     </div>
   );
 }
