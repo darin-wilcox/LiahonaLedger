@@ -1,4 +1,5 @@
 import Button from './Button.jsx';
+import LoginButton from './LoginButton.jsx';
 
 export default function AnnouncementsSidebar({
   onStartAddAnnouncement,
@@ -6,13 +7,23 @@ export default function AnnouncementsSidebar({
   onSelectAnnouncement,
   selectedAnnouncementId,
 }) {
+  const authenticateWithClickUp = () => {
+    // const clientId = process.env.REACT_APP_CLICKUP_CLIENT_ID;
+    const redirectUri = encodeURIComponent("http://localhost:5173");
+    const clickUpUrl = `https://app.clickup.com/api?client_id=K0MZGNS2IFMOIOEG96LKWEADINL523Y7&redirect_uri=${redirectUri}`;
+  
+    window.location.href = clickUpUrl;
+  };
+  
   return (
     <aside className="w-1/3 px-8 py-16 bg-stone-900 text-stone-50 md:w-72 rounded-r-xl">
       <h2 className="mb-8 font-bold uppercase md:text-xl text-stone-200">
         Your Announcements
       </h2>
       <div>
+        <LoginButton />
         <Button onClick={onStartAddAnnouncement}>+ Add Announcement</Button>
+        <Button onClick={authenticateWithClickUp}>Test Clickup</Button>
       </div>
       <ul className="mt-8">
         {announcements.map((announcement) => {
